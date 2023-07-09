@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html>
+
+
+  <head
+
+      data-htmlwidgets="eyJ0aHJlZV9kIjp7InBhdGgiOiJwYWNrYWdlcy9yZW5kZXJlcl9mbHV0dGVyL3RocmVlZF9yZW5kZXJlci4zZGQ2NTc5Y2U0ZWQ2YzMyIiwiZW50cnlGaWxlIjoiYnVpbGQvaW5kZXguaHRtbCIsInByZWxvYWRGaWxlcyI6WyJidWlsZC9pbmRleC5qcyIsImJ1aWxkL2dsYkNvbXByZXNzLmpzIiwiYnVpbGQvY2h1bmsuYnVuZGxlLmpzIl0sImJhc2VVcmwiOiJodHRwczovL2Nkbi1zdGF0aWMtZS5kb3JhLnJ1bi9kb3JhX3J1bm5lci9hc3NldHMvcGFja2FnZXMvcmVuZGVyZXJfZmx1dHRlci90aHJlZWRfcmVuZGVyZXIuM2RkNjU3OWNlNGVkNmMzMi8ifX0="
+
+  >
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- iOS meta tags & icons -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="https://cdn-static-e.dora.run/dora_runner/icons/Icon-192.236e1b6a908f48a9.png">
+
+    <!-- Favicon -->
+      <script
+        src="https://cdn-zip-us-aws-e.dora.run/@sentry/browser@7.48.0/bundle.min.js"
+        integrity="sha384-5sJSEjxn1ex+Fvt1DYkWgGzMvqhd8CyCn1oqZMMshEzFiQNqb8LiDE6v6U2fX2pp"
+        crossorigin="anonymous"
+      ></script>
+      <script>
+        Sentry.init({
+          dsn: "https://c1a0c96cec54481aba6b4510bae37d3c@o1296719.ingest.sentry.io/4505130475323392",
+          release: "dora_runner_shell@0.2.88",
+          environment: "online",
+          initialScope: {"tags":{"app":"dora_runner_shell"}},
+          denyUrls: [
+            // Chrome extensions
+            /extensions\//i,
+            /^chrome:\/\//i,
+            /^chrome-extension:\/\//i,
+          ],
+        });
+      </script>
+
+
+    <script>
+      window.captureError = function (event, source, lineno, colno, error) {
+        window.captureErrorDart && window.captureErrorDart(event, source, lineno, colno, error)
+      }
+    </script>
+    <script>
+      (function (global) {
+        document.addEventListener('contextmenu', function (e) {
+          e.preventDefault();
+        })
+      })(window);
+    </script>
+
+    <style>
+      body {
+        position: fixed;
+        inset: 0px;
+        overflow: hidden;
+        padding: 0px;
+        margin: 0px;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .mask-layer {
+        width: max(150vw, 150vh);
+        height: max(150vw, 150vh);
+        background-color: transparent;
+        border-color: white;
+        border-top-width: 100vh;
+        border-bottom-width: 100vh;
+        border-left-width: 100vw;
+        border-right-width: 100vw;
+        border-style: solid;
+        border-radius: 50%;
+        animation: clipSpread 1s ease;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        will-change: width, height;
+      }
+
+      #loading {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex-wrap: wrap;
+      }
+
+      #loading img {
+        width: 80px;
+        height: 80px;
+      }
+
+      #loading #loading_gif_white {
+        display: none;
+      }
+
+      #loading.dark-mode #loading_gif_white {
+        display: initial;
+      }
+
+      #loading.dark-mode #loading_gif {
+        display: none;
+      }
+
+
+      #loading.home-page {
+        background-color: #246bfc;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex-wrap: wrap;
+      }
+
+      #loading.ai {
+        background-color: #000000;
+      }
+      #loading.expo {
+        background: linear-gradient(180deg, #0043FF 0%, #000000 100%);
+      }
+
+      #loading.home-page #white_circle {
+        position: relative;
+        background-color: white;
+        border-radius: 40vh;
+        width: 39vh;
+        height: 39vh;
+        animation: enterZoomIn 1s ease;
+        transform: rotate(-30deg) scale(1);
+        --original-angle: 30;
+      }
+
+      #loading.ai #white_circle, #loading.expo #white_circle {
+        background-color: transparent;
+      }
+
+      #loading.ai #blue_circle, #loading.expo #blue_circle {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+      #loading.expo #blue_circle {
+        box-shadow: 0px -23.099px 33.95px 0px #256CFEB2;
+        transform: rotate(180deg);
+      }
+
+      #loading.home-page img, #loading.home-page video {
+        position: absolute;
+        margin: auto;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 500px;
+      }
+
+      #loading.home-page #logomark {
+        width: 16vh;
+        height: 16vh;
+        animation: enterZoomIn 1s ease;
+      }
+
+      #loading.home-page #loading_gif {
+        display: none;
+        width: 16vh;
+        height: 16vh;
+      }
+
+      #loading.expo #loading_gif, #loading.expo #logomark {
+        width: 38vh;
+        height: 38vh;
+      }
+
+      #loading.home-page #border_text {
+        width: 33.8vh;
+        height: 33.8vh;
+        animation: enterZoomIn 1s ease;
+      }
+
+      #loading.home-page #progress {
+        display: block;
+        align-items: center;
+        font: 24pt sans-serif;
+        color: #3b6bfa;
+        text-align: center;
+        transform: rotate(180deg);
+      }
+
+      #loading.ai #progress, #loading.expo #progress {
+        color: #ffffff;
+      }
+
+      @keyframes rotateRight {
+        from {
+          transform: rotate(0);
+
+        }
+
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes rotateLeft {
+        from {
+          transform: rotate(0);
+
+        }
+
+        to {
+          transform: rotate(-360deg);
+        }
+      }
+
+      @keyframes enterZoomIn {
+        from {
+          scale: 0;
+        }
+
+        to {
+          scale: 1;
+        }
+      }
+
+      @keyframes clipSpread {
+        from {
+          width: 0;
+          height: 0;
+        }
+
+        to {
+          width: max(150vw, 150vh);
+          height: max(150vw, 150vh);
+        }
+      }
+
+      @media screen and (min-width: 0px) and (max-width:1024px) {
+        #loading.home-page #white_circle {
+          border-radius: 40vw;
+          width: 40vw;
+          height: 40vw;
+          transform: rotate(-120deg) scale(1);
+          --original-angle: 120;
+        }
+
+        #loading.home-page #logomark, #loading.home-page #loading_gif {
+          width: 19vw;
+          height: 19vw;
+        }
+
+        #loading.expo #logomark, #loading.expo #loading_gif {
+          width: 40vw;
+          height: 40vw;
+        }
+
+        #loading.home-page #border_text {
+          width: 36vw;
+          height: 36vw;
+        }
+
+        #loading.home-page #progress {
+          font: 8pt sans-serif;
+        }
+      }
+
+      @media screen and (min-width: 512px) and (max-width:1024px) {
+        #loading.home-page #progress {
+          font: 16pt sans-serif;
+        }
+      }
+
+    </style>
+
+    <script>
+      window.startPreload = function(assetUrls) {
+        if( assetUrls != undefined) {
+          assetUrls.split(',').forEach(element => {
+            var link = document.createElement("link");
+            link.rel = 'prefetch';
+            link.href = element;
+            link.as = 'fetch';
+            link.setAttribute("crossorigin", "anonymous");
+            document.head.appendChild(link);
+          });
+        }
+      }
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script defer src="https://www.googletagmanager.com/gtag/js?id=G-JPSGKY82PS"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      window.MEASUREMENT_ID = 'G-JPSGKY82PS';
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+
+      gtag('config', MEASUREMENT_ID);
+    </script>
+
+
+
+      <link rel="preload" href="https://cdn-static-e.dora.run/fonts/v4/Roboto-regular.ttf" as="font" crossorigin="anonymous">
+
+
+
+    <script>
+      (function () {
+        var interceptTable = {
+  "/assets/FontManifest.json": "[{\"family\":\"packages/dora_icons/DoraIcon12\",\"fonts\":[{\"asset\":\"https://cdn-static-e.dora.run/dora_runner/assets/packages/dora_icons/fonts/icon_12.a51b16ed6f3c21bd.ttf\"}]},{\"family\":\"packages/dora_icons/DoraIcon16\",\"fonts\":[{\"asset\":\"https://cdn-static-e.dora.run/dora_runner/assets/packages/dora_icons/fonts/icon_16.b8073f850f10951f.ttf\"}]},{\"family\":\"packages/dora_icons/DoraIcon24\",\"fonts\":[{\"asset\":\"https://cdn-static-e.dora.run/dora_runner/assets/packages/dora_icons/fonts/icon_24.0a7d410898a071c1.ttf\"}]},{\"family\":\"packages/dora_icons/DoraIcon32\",\"fonts\":[{\"asset\":\"https://cdn-static-e.dora.run/dora_runner/assets/packages/dora_icons/fonts/icon_32.84a8b9e7e4e4809b.ttf\"}]}]",
+  "/assets/NOTICES": "Dora Inc.",
+  "/version.json": "{\"app_name\":\"dora_runner\",\"version\":\"0.2.88\",\"package_name\":\"dora_runner\"}"
+}
+
+        function asciiToArrayBuffer(str) {
+          var buf = new ArrayBuffer(str.length), bufView = new Uint8Array(buf);
+          for (var i = 0, strLen = str.length; i < strLen; i++) {
+            bufView[i] = str.charCodeAt(i);
+          }
+          return buf;
+        }
+
+        var _realOpen = window.XMLHttpRequest.prototype.open;
+        var _realSend = window.XMLHttpRequest.prototype.send;
+
+        window.XMLHttpRequest.prototype.open = function (method, url, async, user, password) {
+          for (var prefix in interceptTable) {
+            var pathname = new URL(url, 'https://placeholder').pathname;
+
+            if (pathname.startsWith(prefix)) {
+              this._response = interceptTable[prefix];
+              return;
+            }
+          }
+
+          return _realOpen.apply(this, arguments);
+        };
+
+        window.XMLHttpRequest.prototype.send = function () {
+          if (!this._response) {
+            return _realSend.apply(this, arguments);
+          }
+
+          var response = asciiToArrayBuffer(this._response);
+          Object.defineProperty(this, 'status', { value: 200 });
+          Object.defineProperty(this, 'readyState', { value: 4 });
+          Object.defineProperty(this, 'response', { value: response });
+
+          this.dispatchEvent(new Event('readystatechange'));
+          this.dispatchEvent(new Event('load'));
+        };
+      })();
+    </script>
+
+    <script>
+      window.FLUTTER_PRE_ASSET_BUNDLE = {
+  "AssetManifest.json": "{\"images/dora_madeindoratag_white.webp\":[\"images/dora_madeindoratag_white.91514bb1d96c06d5.webp\"],\"images/loading.gif\":[\"images/loading.b59c51fab6a8d60f.gif\"],\"images/loading_white.gif\":[\"images/loading_white.80ac0bd6a33360bc.gif\"],\"images/topbar_logo_20.png\":[\"images/topbar_logo_20.9712852f086aa916.png\"],\"packages/core/images/Page/404.png\":[\"packages/core/images/Page/404.23740a9206e0313f.png\"],\"packages/core/images/Page/500.png\":[\"packages/core/images/Page/500.9fe6fbe893865211.png\"],\"packages/core/images/Page/502_503.png\":[\"packages/core/images/Page/502_503.942d3200a3c31b10.png\"],\"packages/core/images/Page/ArrowRight.png\":[\"packages/core/images/Page/ArrowRight.a19cbaa6ec280fab.png\"],\"packages/core/images/Page/dora.png\":[\"packages/core/images/Page/dora.771762b2765eeeba.png\"],\"packages/core/images/Page/logo.png\":[\"packages/core/images/Page/logo.a7df27d66ed7f226.png\"],\"packages/core/images/animate.png\":[\"packages/core/images/animate.d702f788285ebedc.png\"],\"packages/core/images/canvas_indicator/Cursor.png\":[\"packages/core/images/canvas_indicator/Cursor.7460e7acd61831bf.png\"],\"packages/core/images/client_variable.png\":[\"packages/core/images/client_variable.2f356d915e01e1c0.png\"],\"packages/core/images/drivers/fixAddCursorHover.png\":[\"packages/core/images/drivers/fixAddCursorHover.1f1892017d15eb3b.png\"],\"packages/core/images/drivers/fixAddDef.png\":[\"packages/core/images/drivers/fixAddDef.ab4e1f2a14139e1c.png\"],\"packages/core/images/drivers/fixCursorHover.png\":[\"packages/core/images/drivers/fixCursorHover.6f03a4c492258a3f.png\"],\"packages/core/images/drivers/fixCursorSel.png\":[\"packages/core/images/drivers/fixCursorSel.5b1a3d4cd285a599.png\"],\"packages/core/images/drivers/fixDef.png\":[\"packages/core/images/drivers/fixDef.b2e0bc0bedbf87d3.png\"],\"packages/core/images/drivers/fixDel.png\":[\"packages/core/images/drivers/fixDel.8531251cc9fd56ce.png\"],\"packages/core/images/drivers/fixIndicatorSel.png\":[\"packages/core/images/drivers/fixIndicatorSel.06ee37cb127abbc3.png\"],\"packages/core/images/drivers/fixIndicatorSelCursorSel.png\":[\"packages/core/images/drivers/fixIndicatorSelCursorSel.e5c83359f231e5c0.png\"],\"packages/core/images/drivers/keyAddCursorHover.png\":[\"packages/core/images/drivers/keyAddCursorHover.4b79109676471eb2.png\"],\"packages/core/images/drivers/keyAddCursorSelHover.png\":[\"packages/core/images/drivers/keyAddCursorSelHover.fdd7d1177aa2f013.png\"],\"packages/core/images/drivers/keyAddDef.png\":[\"packages/core/images/drivers/keyAddDef.ffed4dce7c298ae9.png\"],\"packages/core/images/drivers/keyCursorHover.png\":[\"packages/core/images/drivers/keyCursorHover.670f1fce0af91b46.png\"],\"packages/core/images/drivers/keyCursorSel.png\":[\"packages/core/images/drivers/keyCursorSel.9283e2928a195fa9.png\"],\"packages/core/images/drivers/keyDef.png\":[\"packages/core/images/drivers/keyDef.42d6d707c3d5fee5.png\"],\"packages/core/images/drivers/keyDelCursorSel.png\":[\"packages/core/images/drivers/keyDelCursorSel.1fd34ad71f203f5c.png\"],\"packages/core/images/drivers/keyDelCursorSelHover.png\":[\"packages/core/images/drivers/keyDelCursorSelHover.9c2d3a7662217d77.png\"],\"packages/core/images/drivers/keyHoverDelIndicatiorSelCursorSel.png\":[\"packages/core/images/drivers/keyHoverDelIndicatiorSelCursorSel.5d30c97f24dbd738.png\"],\"packages/core/images/drivers/keyIndicatiorSelCursorSel.png\":[\"packages/core/images/drivers/keyIndicatiorSelCursorSel.7e13509f97764e48.png\"],\"packages/core/images/drivers/keyIndicatorSel.png\":[\"packages/core/images/drivers/keyIndicatorSel.4972191e7e69e58b.png\"],\"packages/core/images/entity.png\":[\"packages/core/images/entity.072c6cfc3be5f208.png\"],\"packages/core/images/entity_attribute.png\":[\"packages/core/images/entity_attribute.e399464d97990f50.png\"],\"packages/core/images/event.png\":[\"packages/core/images/event.52f38b8db5b5c4fc.png\"],\"packages/core/images/exp_dot_delete.png\":[\"packages/core/images/exp_dot_delete.8af5e0e35bed795b.png\"],\"packages/core/images/exp_dot_delete_hover.png\":[\"packages/core/images/exp_dot_delete_hover.17848d4a5b79d481.png\"],\"packages/core/images/folder_close.png\":[\"packages/core/images/folder_close.d9fcfddb16789c77.png\"],\"packages/core/images/groovy_action.png\":[\"packages/core/images/groovy_action.2e814b7f622630b9.png\"],\"packages/core/images/input_parameter.png\":[\"packages/core/images/input_parameter.892628e95e5fda27.png\"],\"packages/core/images/loading.gif\":[\"packages/core/images/loading.b59c51fab6a8d60f.gif\"],\"packages/core/images/loading_white.gif\":[\"packages/core/images/loading_white.80ac0bd6a33360bc.gif\"],\"packages/core/images/logic_action.png\":[\"packages/core/images/logic_action.199bf27602ad3aea.png\"],\"packages/core/images/logic_generic_action.png\":[\"packages/core/images/logic_generic_action.95c11f77efac955c.png\"],\"packages/core/images/logic_go_page.png\":[\"packages/core/images/logic_go_page.b4425b1f32f5268b.png\"],\"packages/core/images/logic_server_action.png\":[\"packages/core/images/logic_server_action.3c9a7980ed666346.png\"],\"packages/core/images/out_parameter.png\":[\"packages/core/images/out_parameter.1bc2c153ab414e5c.png\"],\"packages/core/images/page.png\":[\"packages/core/images/page.419218ff62e76224.png\"],\"packages/core/images/progress_indicator_blue.png\":[\"packages/core/images/progress_indicator_blue.7470ceac08c08ce2.png\"],\"packages/core/images/progress_indicator_white.png\":[\"packages/core/images/progress_indicator_white.eb87d1662e561006.png\"],\"packages/core/images/ref_entity_identifier.png\":[\"packages/core/images/ref_entity_identifier.65272bf8867be7d9.png\"],\"packages/core/images/server_data_action.png\":[\"packages/core/images/server_data_action.b0776ae48efa7fa1.png\"],\"packages/core/images/variable.png\":[\"packages/core/images/variable.3d2de480f7460bc6.png\"],\"packages/dora_icons/fonts/icon_12.ttf\":[\"packages/dora_icons/fonts/icon_12.a51b16ed6f3c21bd.ttf\"],\"packages/dora_icons/fonts/icon_16.ttf\":[\"packages/dora_icons/fonts/icon_16.b8073f850f10951f.ttf\"],\"packages/dora_icons/fonts/icon_24.ttf\":[\"packages/dora_icons/fonts/icon_24.0a7d410898a071c1.ttf\"],\"packages/dora_icons/fonts/icon_32.ttf\":[\"packages/dora_icons/fonts/icon_32.84a8b9e7e4e4809b.ttf\"],\"packages/renderer_flutter/images/Widget/component_16x.png\":[\"packages/renderer_flutter/images/Widget/component_16x.ab2e5463c4467472.png\"],\"packages/renderer_flutter/images/Widget/image_16x.png\":[\"packages/renderer_flutter/images/Widget/image_16x.03a031cc8eb15f51.png\"],\"packages/renderer_flutter/images/threed_in_list.png\":[\"packages/renderer_flutter/images/threed_in_list.d509a8cdb10ac389.png\"],\"packages/renderer_flutter/images/threed_placeholder.png\":[\"packages/renderer_flutter/images/threed_placeholder.457a031bb868fdb3.png\"],\"packages/renderer_flutter/loading-3d.json\":[\"packages/renderer_flutter/loading-3d.76e37912741afb0b.json\"],\"packages/renderer_flutter/threed_renderer/build/chunk.bundle.js\":[\"packages/renderer_flutter/threed_renderer.3dd6579ce4ed6c32/build/chunk.bundle.js\"],\"packages/renderer_flutter/threed_renderer/build/chunk.bundle.js.LICENSE.txt\":[\"packages/renderer_flutter/threed_renderer.3dd6579ce4ed6c32/build/chunk.bundle.js.LICENSE.txt\"],\"packages/renderer_flutter/threed_renderer/build/chunk.bundle.js.map\":[\"packages/renderer_flutter/threed_renderer.3dd6579ce4ed6c32/build/chunk.bundle.js.map\"],\"packages/renderer_flutter/threed_renderer/build/draco_decoder_gltf.wasm\":[\"packages/renderer_flutter/threed_renderer.3dd6579ce4ed6c32/build/draco_decoder_gltf.wasm\"],\"packages/renderer_flutter/threed_renderer/build/draco_encoder.wasm\":[\"packages/renderer_flutter/threed_renderer.3dd6579ce4ed6c32/build/draco_encoder.wasm\"],\"packages/renderer_flutter/threed_renderer/build/glbCompress.js\":[\"packages/renderer_flutter/threed_renderer.3dd6579ce4ed6c32/build/glbCompress.js\"],\"packages/renderer_flutter/threed_renderer/build/glbCompress.js.LICENSE.txt\":[\"packages/renderer_flutter/threed_renderer.3dd6579ce4ed6c32/build/glbCompress.js.LICENSE.txt\"],\"packages/renderer_flutter/threed_renderer/build/glbCompress.js.map\":[\"packages/renderer_flutter/threed_renderer.3dd6579ce4ed6c32/build/glbCompress.js.map\"],\"packages/renderer_flutter/threed_renderer/build/index.html\":[\"packages/renderer_flutter/threed_renderer.3dd6579ce4ed6c32/build/index.html\"],\"packages/renderer_flutter/threed_renderer/build/index.html.ejs\":[\"packages/renderer_flutter/threed_renderer.3dd6579ce4ed6c32/build/index.html.ejs\"],\"packages/renderer_flutter/threed_renderer/build/index.js\":[\"packages/renderer_flutter/threed_renderer.3dd6579ce4ed6c32/build/index.js\"],\"packages/renderer_flutter/threed_renderer/build/index.js.LICENSE.txt\":[\"packages/renderer_flutter/threed_renderer.3dd6579ce4ed6c32/build/index.js.LICENSE.txt\"],\"packages/renderer_flutter/threed_renderer/build/index.js.map\":[\"packages/renderer_flutter/threed_renderer.3dd6579ce4ed6c32/build/index.js.map\"],\"packages/renderer_flutter/threed_renderer/libs/officialLibrary/models/10174-1-ImperialAT-ST-UCS.mpd_Packed.mpd\":[\"packages/renderer_flutter/threed_renderer.3dd6579ce4ed6c32/libs/officialLibrary/models/10174-1-ImperialAT-ST-UCS.mpd_Packed.mpd\"],\"packages/renderer_flutter/threed_renderer/libs/officialLibrary/models/1621-1-LunarMPVVehicle.mpd_Packed.mpd\":[\"packages/renderer_flutter/threed_renderer.3dd6579ce4ed6c32/libs/officialLibrary/models/1621-1-LunarMPVVehicle.mpd_Packed.mpd\"],\"packages/renderer_flutter/threed_renderer/libs/officialLibrary/models/30023-1-Lighthouse.ldr_Packed.mpd\":[\"packages/renderer_flutter/threed_renderer.3dd6579ce4ed6c32/libs/officialLibrary/models/30023-1-Lighthouse.ldr_Packed.mpd\"],\"packages/renderer_flutter/threed_renderer/libs/officialLibrary/models/30051-1-X-wingFighter-Mini.mpd_Packed.mpd\":[\"packages/renderer_flutter/threed_renderer.3dd6579ce4ed6c32/libs/officialLibrary/models/30051-1-X-wingFighter-Mini.mpd_Packed.mpd\"],\"packages/renderer_flutter/threed_renderer/libs/officialLibrary/models/30054-1-AT-ST-Mini.mpd_Packed.mpd\":[\"packages/renderer_flutter/threed_renderer.3dd6579ce4ed6c32/libs/officialLibrary/models/30054-1-AT-ST-Mini.mpd_Packed.mpd\"],\"packages/renderer_flutter/threed_renderer/libs/officialLibrary/models/4489-1-AT-AT-Mini.mpd_Packed.mpd\":[\"packages/renderer_flutter/threed_renderer.3dd6579ce4ed6c32/libs/officialLibrary/models/4489-1-AT-AT-Mini.mpd_Packed.mpd\"],\"packages/renderer_flutter/threed_renderer/libs/officialLibrary/models/4494-1-Imperial Shuttle-Mini.mpd_Packed.mpd\":[\"packages/renderer_flutter/threed_renderer.3dd6579ce4ed6c32/libs/officialLibrary/models/4494-1-Imperial Shuttle-Mini.mpd_Packed.mpd\"],\"packages/renderer_flutter/threed_renderer/libs/officialLibrary/models/4838-1-MiniVehicles.mpd_Packed.mpd\":[\"packages/renderer_flutter/threed_renderer.3dd6579ce4ed6c32/libs/officialLibrary/models/4838-1-MiniVehicles.mpd_Packed.mpd\"],\"packages/renderer_flutter/threed_renderer/libs/officialLibrary/models/4915-1-MiniConstruction.mpd_Packed.mpd\":[\"packages/renderer_flutter/threed_renderer.3dd6579ce4ed6c32/libs/officialLibrary/models/4915-1-MiniConstruction.mpd_Packed.mpd\"],\"packages/renderer_flutter/threed_renderer/libs/officialLibrary/models/4918-1-MiniFlyers.mpd_Packed.mpd\":[\"packages/renderer_flutter/threed_renderer.3dd6579ce4ed6c32/libs/officialLibrary/models/4918-1-MiniFlyers.mpd_Packed.mpd\"],\"packages/renderer_flutter/threed_renderer/libs/officialLibrary/models/5935-1-IslandHopper.mpd_Packed.mpd\":[\"packages/renderer_flutter/threed_renderer.3dd6579ce4ed6c32/libs/officialLibrary/models/5935-1-IslandHopper.mpd_Packed.mpd\"],\"packages/renderer_flutter/threed_renderer/libs/officialLibrary/models/6965-1-TIEIntercep_4h4MXk5.mpd_Packed.mpd\":[\"packages/renderer_flutter/threed_renderer.3dd6579ce4ed6c32/libs/officialLibrary/models/6965-1-TIEIntercep_4h4MXk5.mpd_Packed.mpd\"],\"packages/renderer_flutter/threed_renderer/libs/officialLibrary/models/6966-1-JediStarfighter-Mini.mpd_Packed.mpd\":[\"packages/renderer_flutter/threed_renderer.3dd6579ce4ed6c32/libs/officialLibrary/models/6966-1-JediStarfighter-Mini.mpd_Packed.mpd\"],\"packages/renderer_flutter/threed_renderer/libs/officialLibrary/models/7140-1-X-wingFighter.mpd_Packed.mpd\":[\"packages/renderer_flutter/threed_renderer.3dd6579ce4ed6c32/libs/officialLibrary/models/7140-1-X-wingFighter.mpd_Packed.mpd\"],\"packages/renderer_flutter/threed_renderer/libs/officialLibrary/models/889-1-RadarTruck.mpd_Packed.mpd\":[\"packages/renderer_flutter/threed_renderer.3dd6579ce4ed6c32/libs/officialLibrary/models/889-1-RadarTruck.mpd_Packed.mpd\"],\"packages/renderer_flutter/threed_renderer/libs/officialLibrary/models/car.ldr_Packed.mpd\":[\"packages/renderer_flutter/threed_renderer.3dd6579ce4ed6c32/libs/officialLibrary/models/car.ldr_Packed.mpd\"],\"packages/ui_kit/fonts.json\":[\"packages/ui_kit/fonts.85760b36b3a023e2.json\"],\"packages/youtube_player/html/player.html\":[\"packages/youtube_player/html/player.c6ff30e670093136.html\"],\"packages/youtube_player/images/back_to_start.png\":[\"packages/youtube_player/images/back_to_start.a52f343e5323c817.png\"],\"packages/youtube_player/images/mute.png\":[\"packages/youtube_player/images/mute.95b04f47768ca4ad.png\"],\"packages/youtube_player/images/play.png\":[\"packages/youtube_player/images/play.1e2d86f0812b3b25.png\"],\"packages/youtube_player/images/stop.png\":[\"packages/youtube_player/images/stop.e83acc101c599f14.png\"],\"packages/youtube_player/images/unmute.png\":[\"packages/youtube_player/images/unmute.0ef0737e7e8dc720.png\"],\"packages/youtube_player/images/youtube_logo.png\":[\"packages/youtube_player/images/youtube_logo.6b903e9130dcbb5d.png\"]}",
+  "FontManifest.json": "[{\"family\":\"packages/dora_icons/DoraIcon12\",\"fonts\":[{\"asset\":\"https://cdn-static-e.dora.run/dora_runner/assets/packages/dora_icons/fonts/icon_12.a51b16ed6f3c21bd.ttf\"}]},{\"family\":\"packages/dora_icons/DoraIcon16\",\"fonts\":[{\"asset\":\"https://cdn-static-e.dora.run/dora_runner/assets/packages/dora_icons/fonts/icon_16.b8073f850f10951f.ttf\"}]},{\"family\":\"packages/dora_icons/DoraIcon24\",\"fonts\":[{\"asset\":\"https://cdn-static-e.dora.run/dora_runner/assets/packages/dora_icons/fonts/icon_24.0a7d410898a071c1.ttf\"}]},{\"family\":\"packages/dora_icons/DoraIcon32\",\"fonts\":[{\"asset\":\"https://cdn-static-e.dora.run/dora_runner/assets/packages/dora_icons/fonts/icon_32.84a8b9e7e4e4809b.ttf\"}]}]",
+  "NOTICES": "Dora Inc."
+};
+      const _fetch = window.fetch;
+      window.fetch = (resource, options) => {
+        if (resource.startsWith('assets/')) {
+          const assetKey = resource.replace('assets/', '');
+          const assetValue = window.FLUTTER_PRE_ASSET_BUNDLE[assetKey];
+          if (assetValue) {
+            return new Promise((resolve, reject) => resolve(new Response(assetValue)))
+          }
+        }
+        return _fetch(resource, options);
+      };
+    </script>
+
+  <script>window.DORA_PROJECT_PREPARATION="{\"summary\":{\"fonts\":{\"Inter-Medium\":[\"WmMHoyIw2\"],\"Inter-ExtraLight\":[\"Wl82dbhwc\",\"WrmkvzOsk\",\"W8PBrus3h\",\"WVxc5wTS7\",\"W93M155t7\",\"W0OKOeMHB\",\"WLYsF30Iu\",\"Wv3NoEGLC\",\"WyFqQAlyJ\",\"W7fAVQoFn\",\"WinrAacyB\",\"WycpkToOj\",\"WadlM3A21\",\"WBFDGWfuu\",\"Wax43KLEa\",\"WWWionSyA\",\"W4479qduW\",\"WhThpLBJG\",\"WpDRdKESQ\",\"WsryTwVq7\",\"Wg2R71BWj\",\"WRESHqOT9\",\"WsGIF6u4K\",\"WYd4ZoL4d\",\"WEFj88q8M\",\"WOZrgtqf0\",\"W9yb2TlvE\",\"Wq2BAHtKs\",\"WxjTkcFc7\",\"Wdmu0dQ44\",\"Wq2WpyYTP\",\"Wqvp55MQn\",\"WqfHP9usU\",\"WmsdeMLpZ\",\"WvFMuWXpC\",\"WAMrROgpU\",\"W4i1vIUrt\",\"WVmfBH1tm\",\"W81NoTDXR\",\"Wo0xMu8UQ\"],\"Inter-Thin\":[\"WTGzmMObP\",\"WmyRfbo9k\",\"WswUsmfZV\",\"WCidTmvAm\",\"WOReKjI1b\",\"WsheFyrem\",\"Wu52BSf3D\",\"WGzAqW6EH\",\"WGOQC34pC\",\"WiYWqtG1y\",\"Wx3MbCla0\",\"WsZ8L50XE\",\"WFHKwcUY1\",\"WF654zKQe\",\"WAEUhfpIx\",\"Wb8YXS9zY\",\"WAWiJO2Fv\",\"WirF5x6gI\",\"WIPg2k5UU\",\"WzEev9g8I\",\"WuX6cfkDn\"],\"Inter-Bold\":[\"WQTBwcqac\",\"WE6anaj1q\",\"WTAqJRPgD\",\"WA9KRgout\",\"WNN8qJRL5\",\"WfPA6JIMd\",\"W1ovtM1dT\",\"WTjPiova6\",\"Wnq8wJqD6\",\"W54Qy1JS5\",\"WUSqtvCWj\",\"WjHQegAIn\",\"W8lFM4b5q\",\"WDpfyHKd4\",\"WYy1BEyOp\",\"WYifDUBLJ\",\"WomoO9YCy\",\"WxWv1oEpv\",\"W3klfGnxG\",\"WUv28lnqj\",\"WcoyK6wkQ\"],\"Inter-Regular\":[\"Wb5ptgAWr\",\"WIdEnwm7x\",\"WyRqil7A3\",\"Wnof2pOT8\",\"WZjJzHoZV\",\"WB90yZnbU\",\"WmsOP4hmD\",\"WgNWJL88u\",\"WzgtNqjUO\",\"WYZpVE0Xj\",\"WySjaaH7o\",\"WAK04qTWv\",\"WosekUKYh\",\"WklfM4QrH\",\"Wpxg4By48\",\"W61w5KuVG\",\"WnT6858QY\",\"WKvWO3LPM\",\"WJQwBOLf3\",\"WaCuPVn7t\",\"W8FnRADwe\",\"WcAd1Kdrm\",\"Wt10lNACj\",\"W4zBceYGI\",\"WPO9WYRRV\",\"W5uKiTEIj\",\"W3KXUA4Y1\",\"WEY2rQHDj\",\"W5lzRf29a\",\"WunRD1gX9\",\"WNOZKMd7W\",\"WKRUQR1Q7\",\"WcLeKtHo1\",\"WjhTO7MgP\",\"WO2joBnyH\",\"Wfz30YPXd\",\"WBm5SPlsh\",\"WyXhfRhwu\",\"WqbAdHI77\",\"W193UkbXg\",\"WvWudhAfa\",\"Wr5t4N62J\",\"WQblzOU3g\",\"WwIv03sZc\",\"Wy7Nw2gRv\",\"WbVLdFc8g\",\"WD7pGbN0t\",\"W3R2l8VDf\"]},\"last_modified\":1688901042992},\"domain\":\"nhzni3le.dora.run\",\"id\":\"344065\",\"api\":{\"/action\":{\"version\":\"cce735ba-2af5-45fc-9994-423a9b82eddd\"},\"/project/get\":{\"version\":\"335abf1a-83a4-4a16-9327-a8aa9c72a460\"},\"/meta\":{\"version\":\"d16ff418-ff7c-45eb-b7c4-eaf91de4051a\"}}}";</script><link rel="preload" href="https://cdn-static-e.dora.run/fonts/v4/Inter-500.ttf" as="font" crossorigin="anonymous"><link rel="preload" href="https://cdn-static-e.dora.run/fonts/v4/Inter-200.ttf" as="font" crossorigin="anonymous"><link rel="preload" href="https://cdn-static-e.dora.run/fonts/v4/Inter-100.ttf" as="font" crossorigin="anonymous"><link rel="preload" href="https://cdn-static-e.dora.run/fonts/v4/Inter-700.ttf" as="font" crossorigin="anonymous"><link rel="preload" href="https://cdn-static-e.dora.run/fonts/v4/Inter-regular.ttf" as="font" crossorigin="anonymous"></head>
+
+  <body>
+    <div id="dora_edit_skeleton">
+    </div>
+    <script>
+      if (/^\/e\/\d+/.test(window.document.location.pathname)) {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("GET", "https://cdn-static-e.dora.run/dora_runner/edit_skeleton.c450e496fc6fb286.html", false);
+        xmlhttp.send();
+        var dom = document.getElementById('dora_edit_skeleton');
+        if (dom) {
+          dom.innerHTML = xmlhttp.responseText;
+        }
+      }
+    </script>
+    <div id="loading" data-pg="0">
+      <div>
+        <span id="progress"></span>
+      </div>
+      <picture>
+        <img id="loading_gif" src="https://cdn-static-e.dora.run/dora_runner/loading.be79e9c282eb3c27.webp" alt="loading">
+      </picture>
+    </div>
+    <script>
+      (function (global) {
+        var loading = document.getElementById('loading');
+        const ishomepage = isHomePage();
+        const disableloading = disableLoading();
+        const ispreview = isPreview();
+        function disableLoading() {
+          let queryParams = window.location.search;
+          return queryParams.includes('__dora_disable_loading=true');
+        }
+        function isHomepageByHost() {
+          const homeHosts = [
+            'www.dora.run',
+            'beta.dora.run',
+            'test.dora.run',
+            'prerelease.dora.run',
+            'localhost',
+          ];
+          const swimlaneKey = 'swimlane.dora.run'
+          const currentHostname = location.hostname;
+          return (homeHosts.indexOf(currentHostname) != -1 || currentHostname.indexOf(swimlaneKey) != -1) && (location.pathname == '/' || location.pathname == '/9iFDgejkpz') && !location.search.includes('uri');
+        }
+        function isHomeProject() {
+          try {
+            const data = window.DORA_PROJECT_PREPARATION;
+            if (!data) {
+              return false;
+            }
+            const parsedData = JSON.parse(data);
+            const id = parsedData.id;
+            if (typeof id === 'undefined' || id === null) {
+              return false;
+            }
+            const idAsNumber = Number(id);
+            if (isNaN(idAsNumber)) {
+              return false;
+            }
+            return idAsNumber === 1;
+          } catch (error) {
+            return false;
+          }
+        }
+        function isHomePage() {
+          const path = window.location;
+          if (isHomeProject()) {
+            return path.pathname === '/' || path.pathname === '/9iFDgejkpz';
+          } else {
+            return isHomepageByHost();
+          }
+        }
+        function isAI() {
+          return window.location.pathname === '/ai' && isHomeProject();
+        }
+        function isExpo() {
+          const path = window.location;
+          return (path.hostname === 'expo.dora.run' || path.hostname === 'expo.prerelease.dora.run') && (path.pathname === '/ai' || path.pathname === '/');
+        }
+        function isPreview() {
+          let regexp = /preview(-test|-prerelease)?\.dora\.run/i;
+          return regexp.test(window.location.href);
+        }
+        function initLoadingMode() {
+          if (loading.dataset.mode === 'homepage' && (ishomepage || isAI() || isExpo())) {
+            return;
+          }
+          if (loading.dataset.mode === 'default' && !ishomepage) {
+            return;
+          }
+          loading.style.display = 'flex';
+          loading.style.zIndex = 100;
+          if (ishomepage && !disableloading) {
+            // home page loading
+            loading.innerHTML = `
+            <div id="white_circle">
+              <span id="progress"></span>
+            </div>
+            <picture>
+              <img id="logomark" src="https://cdn-static-e.dora.run/dora_runner/logomark.20931c9e2cbbf837.png" alt="loading">
+              <video id="loading_gif" autoplay loop muted>
+                <source src="https://cdn-static-e.dora.run/dora_runner/loading.7b9d970a29f1583c.mp4" type="video/mp4">
+              </video>
+              <img id="border_text" src="https://cdn-static-e.dora.run/dora_runner/Vector.1277ff774489bb0a.png" alt="border_text">
+            </picture>
+            `;
+            loading.classList.add('home-page');
+            loading.dataset.mode = 'homepage';
+          } else if (isAI()) {
+            // ai page loading
+            loading.innerHTML = `
+            <div id="white_circle">
+              <span id="progress"></span>
+              <img id="blue_circle" src="https://cdn-static-e.dora.run/dora_runner/ai_circle.03262a790699f776.png">
+            </div>
+            <picture>
+              <img id="logomark" src="https://cdn-static-e.dora.run/dora_runner/ai_logomark.be18b93a6a705616.png" alt="loading">
+              <video id="loading_gif" autoplay loop muted>
+                <source src="https://cdn-static-e.dora.run/dora_runner/ai_loading.e07c4dcbcc165a09.mp4" type="video/mp4">
+              </video>
+              <img id="border_text" src="https://cdn-static-e.dora.run/dora_runner/Vector.1277ff774489bb0a.png" alt="border_text">
+            </picture>
+            `;
+            loading.classList.add('home-page');
+            loading.classList.add('ai');
+            loading.dataset.mode = 'homepage';
+          } else if (isExpo())  {
+            loading.innerHTML = `
+            <div id="white_circle">
+              <span id="progress"></span>
+              <img id="blue_circle" src="https://cdn-static-e.dora.run/dora_runner/expo_circle.75e6325a91325ab3.png">
+            </div>
+            <picture>
+              <img id="logomark" src="https://cdn-static-e.dora.run/dora_runner/expo_logomark.6c524e4f4dff6feb.png" alt="loading">
+              <video id="loading_gif" autoplay loop muted>
+                <source src="https://cdn-static-e.dora.run/dora_runner/expo_loading.2deff4becfb88f44.mp4" type="video/mp4">
+              </video>
+              <img id="border_text" src="https://cdn-static-e.dora.run/dora_runner/expo_vector.9fb61d172d147be7.png" alt="border_text">
+            </picture>
+            `;
+            loading.classList.add('home-page');
+            loading.classList.add('expo');
+            loading.dataset.mode = 'homepage';
+          } else {
+            // default page loading
+            // if (isPreview) {
+            //   loading.classList.add('dark-mode');
+            // }
+            loading.classList.remove('home-page');
+            loading.dataset.mode = 'default';
+            loading.innerHTML = `
+            <picture>
+              <img id="loading_gif" src="https://cdn-static-e.dora.run/dora_runner/loading.be79e9c282eb3c27.webp" alt="loading">
+            </picture>
+            `;
+          }
+        }
+
+        function renderDoraLoading(progress) {
+          if ((ishomepage || isAI() || isExpo()) && !disableloading) {
+            renderDoraHomePageLoading(progress);
+          } else {
+            renderDoraDefaultPageLoading(progress);
+          }
+        }
+
+        function renderDoraDefaultPageLoading(progress) {
+          loading.dataset.pg = progress;
+        }
+
+        function renderDoraHomePageLoading(progress) {
+          var loading = document.getElementById('loading');
+          if (!loading) return;
+
+          progressQueue.push(parseFloat(progress));
+          endProgress = Math.max.apply(null, progressQueue);
+          if (progressQueue.length >= 2) {
+            return;
+          }
+          let text = document.getElementById('progress');
+          let circle = document.getElementById('white_circle');
+          const originalAngle = parseFloat(getComputedStyle(circle).getPropertyValue('--original-angle'));
+
+          let done = false;
+          function stepAnimation(timestamp) {
+            if (done) {
+              return;
+            }
+            if (currentProgress < endProgress) {
+              const ec = endProgress - currentProgress;
+              let step = Math.min(Math.max(ec / 5, 0.10), 0.40);
+              if (ec < 3) {
+                step = 0.02;
+              }
+              if (endProgress == 100) {
+                step = 0.75;
+              }
+              currentProgress += step;
+              currentProgress = Math.min(currentProgress, 100);
+              text.textContent = Math.round(currentProgress) + '%';
+              circle.style.transform = `rotate(-${originalAngle + currentProgress * 3}deg) scale(${currentProgress * 0.03 + 1})`;
+              window.requestAnimationFrame(stepAnimation);
+            }
+            else {
+              if (currentProgress < 100) {
+                window.requestAnimationFrame(stepAnimation);
+              }
+              if (currentProgress >= endProgress && endProgress >= 100) {
+                done = true;
+                hasSetLoading = false;
+                '';
+                circle.style.transition = 'all 600ms ease';
+                circle.style.transform = `rotate(-${originalAngle + 100 * 3 + 20}deg) scale(${100 * 0.03 + 1 + 6})`;
+                '';
+                let borderText = document.getElementById('border_text');
+                let loadingGif = document.getElementById('loading_gif');
+                borderText.style.scale = '0';
+                loadingGif.style.scale = '0';
+                borderText.style.animation = 'enterZoomIn 240ms ease reverse';
+                loadingGif.style.animation = 'enterZoomIn 240ms ease reverse';
+                '';
+                setTimeout(() => {
+                  loading.dataset.pg = 100;
+                  let maskLayerDom = document.createElement('div');
+                  let homepage = document.getElementsByTagName('flt-glass-pane')[0];
+                  const pageIsHomepage = isHomePage();
+                  const pageIsAI = isAI();
+                  const pageIsExpo = isExpo();
+                  if (pageIsHomepage || pageIsAI) {
+                    if (pageIsHomepage) {
+                      maskLayerDom.innerHTML = "<div class='mask-layer'></div>";
+                    }
+                    if (pageIsAI) {
+                      maskLayerDom.innerHTML = "<div class='mask-layer' style='border-color: #000000'></div>";
+                    }
+                    if (pageIsExpo) {
+                      maskLayerDom.innerHTML = "<div class='mask-layer' style='border-color: #0034c5'></div>";
+                    }
+                    maskLayerDom.style = "height: 100vh;width: 100vw;overflow: hidden;position: fixed;top: 0;left: 0;z-index:20;";
+                    document.body.insertBefore(maskLayerDom, homepage);
+                  }
+                  '';
+                  setTimeout(()=>{
+                    progressQueue = [];
+                    currentProgress = 50;
+                    endProgress = 50;
+                    loading.dataset.pg = 50;
+                    text.textContent = '50%';
+                    borderText.style.scale = '1';
+                    loadingGif.style.scale = '1';
+                    loadingGif.style.animation = '';
+                    borderText.style.animation = 'enterZoomIn 1s ease';
+                    circle.style.animation = 'enterZoomIn 1s ease';
+                    circle.style.transform = `rotate(-${originalAngle + 50 * 3}deg) scale(${50 * 0.03 + 1})`;
+                    document.getElementById('logomark').style.display = 'flex';
+                    loadingGif.style.display = 'none';
+                  }, 100);
+                  setTimeout(()=>{
+                    maskLayerDom.remove();
+                  }, 1000);
+                }, 100);
+              }
+            }
+          }
+          window.requestAnimationFrame(stepAnimation);
+        }
+
+
+        function updateDoraLoading(progress) {
+          window.dispatchEvent(new CustomEvent('dora_load_event', {
+            detail: {
+              time: Date.now(),
+              progress: progress,
+            }
+          }));
+        }
+        function switchToLoadingAnimation() {
+          let loadingGif = document.getElementById('loading_gif');
+          let logomark = document.getElementById('logomark');
+          if (!loadingGif) return;
+          logomark.style.display = 'none';
+          loadingGif.style.display = 'flex';
+          let borderText = document.getElementById('border_text');
+          if (!borderText) return;
+          borderText.style.animation = 'rotateRight 30s linear infinite';
+        }
+
+        var hasSetLoading = false;
+        var progressQueue = [];
+        var currentProgress = 0.0;
+        var endProgress = 0.0;
+        window.addEventListener('dora_load_event', function (e) {
+          if (!hasSetLoading) {
+            hasSetLoading = true;
+            if ((ishomepage || isAI() || isExpo()) && !disableloading) {
+              setTimeout(() => switchToLoadingAnimation(), 800);
+            }
+          }
+          renderDoraLoading(e.detail.progress);
+        });
+        window.updateDoraLoading = updateDoraLoading;
+        initLoadingMode();
+      })(window);
+    </script>
+
+    <script src="https://cdn-zip-us-aws-e.dora.run/@lume/kiwi@0.3.2/lib/kiwi.min.js"></script>
+
+    <script>
+      // The value below is injected by flutter build, do not touch.
+      var serviceWorkerVersion = null;
+    </script>
+    <!-- This script adds the flutter initialization JS code -->
+    <script src="https://cdn-static-e.dora.run/dora_runner/flutter.b706f51b33636a56.js" defer></script>
+
+    <script>
+      function canvaskitHook(canvaskit) {
+        var getGlyphIDs = canvaskit.Font.prototype.getGlyphIDs
+        var _empty = new Uint16Array()
+        canvaskit.Font.prototype.getGlyphIDs = function (str, numGlyphIDs, optionalOutputArray) {
+          if (!str) return _empty;
+          return getGlyphIDs.call(this, str, numGlyphIDs, optionalOutputArray);
+        }
+      }
+      function loadScript(src) {
+        return new Promise(function (resolve, reject) {
+          var script = document.createElement('script');
+          script.src = src;
+          script.onload = resolve;
+          script.onerror = reject;
+          document.head.appendChild(script);
+        });
+      }
+      function preload(src) {
+        return new Promise(function (resolve, reject) {
+          var el = document.createElement('link');
+          el.rel = 'preload';
+          el.href = src;
+          el.as = 'script';
+          document.head.appendChild(el);
+        });
+      }
+
+      var defaultRenderer = 'html';
+      var queryParameters = new URLSearchParams(window.location.search);
+      var renderer = queryParameters.get('__dora_renderer') || defaultRenderer;
+
+      window.addEventListener('load', function(ev) {
+        function loadEntrypoint() {
+          // Download main.dart.js
+          _flutter.loader.loadEntrypoint({
+
+              entrypointUrl: "https://cdn-static-e.dora.run/dora_runner/main.dart.a7d382a7326bdee0.js",
+
+            serviceWorker: {
+              serviceWorkerVersion: serviceWorkerVersion,
+            },
+            onEntrypointLoaded: async function(engineInitializer) {
+              window.updateDoraLoading(50);
+              let appRunner = await engineInitializer.initializeEngine({
+                renderer: renderer,
+              });
+              appRunner.runApp();
+            }
+          });
+        }
+
+        if (renderer == 'canvaskit') {
+          var canvasKitJsFileName = Intl.v8BreakIterator ? 'chromium/canvaskit.js' : 'canvaskit.js'
+          var canvaskitEntry = `https://cdn-zip-us-aws-e.dora.run/flutter-canvaskit/2a3401c9bbb5a9a9aec74d4f735d18a9dd3ebf2d/${canvasKitJsFileName}`;
+          preload("https://cdn-static-e.dora.run/dora_runner/main.dart.a7d382a7326bdee0.js");
+          preload(canvaskitEntry);
+          loadScript(canvaskitEntry)
+            .then(function () {
+              window.updateDoraLoading(10);
+              return window.CanvasKitInit();
+            }).then(function (canvaskit) {
+              window.flutterCanvasKit = canvaskit;
+              canvaskitHook(canvaskit);
+              window.updateDoraLoading(20);
+              loadEntrypoint();
+            })
+        } else {
+          loadEntrypoint();
+        }
+      });
+    </script>
+
+    <script>
+      (function () {
+        if (!window.WebAssembly || !window.WebAssembly.Memory) return;
+        var Memory = WebAssembly.Memory;
+        var _grow = Memory.prototype.grow;
+        Memory.prototype.grow = function (n) {
+          var r = _grow.call(this, n);
+          if (r !== -1) {
+            var event = new CustomEvent('wasm-memory-grow', {
+              detail: {
+                size: this.buffer.byteLength
+              }
+            });
+            window.dispatchEvent(event);
+          }
+          return r;
+        };
+      })();
+    </script>
+    <script>
+      (function (global) {
+        global.DoraEditor = {
+          onHotRestart: null,
+          hookHotRestart: function () {
+            var _fn = window.$dartHotRestartDwds;
+            if (_fn) {
+              window.$dartHotRestartDwds = (...args) => {
+                _fn.call(null, ...args)
+                if (typeof DoraEditor['onHotRestart'] == 'function') {
+                  DoraEditor['onHotRestart']();
+                }
+              }
+            }
+          }
+        };
+      })(window);
+    </script>
+
+    <script>
+      (function (global) {
+        global.doraKeyboard = {
+          checker: null,
+        };
+        window.addEventListener('keydown', function (event) {
+          if (typeof global.doraKeyboard.checker !== 'function') return;
+          if (event.ctrlKey || event.metaKey) {
+            global.doraKeyboard.checker(event);
+          }
+          if (event.keyCode == 8 && event.target == document.body) {
+            event.preventDefault();
+          }
+        }, { passive: false });
+        window.addEventListener('focus', function (event) {
+          if (typeof global.doraKeyboard['onFocus'] !== 'function') return;
+          global.doraKeyboard['onFocus'](event);
+        });
+        window.addEventListener('blur', function (event) {
+          if (typeof global.doraKeyboard['onBlur'] !== 'function') return;
+          global.doraKeyboard['onBlur'](event);
+        });
+      })(window);
+
+      window.addEventListener('mousewheel', function (event) {
+        if (event.ctrlKey === true || event.metaKey) {
+          event.preventDefault();
+        }
+      }, { passive: false });
+
+      window.addEventListener('wheel', function (event) {
+        if (event.ctrlKey === true || event.metaKey) {
+          event.preventDefault();
+        }
+      }, { passive: false });
+
+      //firefox
+      window.addEventListener('DOMMouseScroll', function (event) {
+        if (event.ctrlKey === true || event.metaKey) {
+          event.preventDefault();
+        }
+      }, { passive: false });
+    </script>
+  <div class="seo-content" style="opacity: 0; white-space: pre">
+</div></body>
+
+</html>
